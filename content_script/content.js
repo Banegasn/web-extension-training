@@ -6,4 +6,4 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
         // the web-page's DOM content as argument
         sendResponse(document.all[0].outerHTML);
     }
-});
+});	
