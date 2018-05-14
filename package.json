@@ -1,0 +1,24 @@
+{
+  "name": "web-extension-training",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "web-extensions": "^0.2.0",
+    "webextension-polyfill": "^0.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Banegasn/web-extension-training.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Banegasn/web-extension-training/issues"
+  },
+  "homepage": "https://github.com/Banegasn/web-extension-training#readme"
+}

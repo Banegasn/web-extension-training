@@ -15,12 +15,22 @@
 	    ]
 	},
 
+	"content_scripts": [{
+		"matches": ["*://*/*"],
+		"js": ["content_script/content.js"]
+	}],
+
 	"browser_action": {
 		"default_icon": {
 			"19": "resources/button.png",
 			"38": "resources/button.png"
 		},
 		"default_title": "Wiki Search"
-	}
+	},
+
+    "permissions": [
+    	"tabs",
+        "https://es.wikipedia.org/*"
+    ]
 
 }
