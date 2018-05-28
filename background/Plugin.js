@@ -37,7 +37,7 @@ class Plugin {
 	showResults(results){
 		var plugin = this;
 		
-		if (results.titles.length > 0) {
+
 
 			browser.tabs.sendMessage(
 				plugin.tab.id, 
@@ -46,7 +46,7 @@ class Plugin {
 				plugin.showing_results = true 
 			);
 
-		}
+		
 	}
 
 	clearResultsPanel(){
