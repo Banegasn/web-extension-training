@@ -17,7 +17,11 @@ class Wiki {
 		return this.results
 	}
 
-	search(text,callback) { 
+	clearResults(){
+		this.results = [];
+	}
+
+	search(text,plugin) { 
 		var xmlHttp = new XMLHttpRequest();
 		var wiki = this;
 
@@ -26,7 +30,7 @@ class Wiki {
 		        var wikiWeb = new Web( this.response ); 
 		        console.log(Wiki.getSearchTitles(wikiWeb));
 		        wiki.addResult(Wiki.getSearchTitles(wikiWeb));
-		        callback({titles:Wiki.getSearchTitles(wikiWeb),search:text});
+		        plugin.showResults({titles:Wiki.getSearchTitles(wikiWeb),search:text});
 		    }
 		};
 

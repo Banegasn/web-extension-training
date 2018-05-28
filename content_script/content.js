@@ -1,6 +1,7 @@
 // Listen for messages
 browser.runtime.onMessage.addListener(request => {
 	if (request.results) {
+		
 		if(!document.getElementById("modal-wiki-search")){
 			var newDiv = document.createElement("div"); 
 			newDiv.innerHTML = 
@@ -11,7 +12,7 @@ browser.runtime.onMessage.addListener(request => {
 			</div>`;
 			document.body.appendChild(newDiv); 
 		}
-	
+
 		var resultdiv = document.querySelector('#modal-wiki-search .results-body');
 		var searchtitle = document.createElement('h4');
 		searchtitle.innerHTML = request.results.search;
