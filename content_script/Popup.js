@@ -3,15 +3,22 @@
  */
 class Popup {
 
-	// constructor(){
-
-	// }
+	constructor(){
+		this.open = false;
+	}
 	
-	static receive(request){
-		if(!document.getElementById("modal-wiki-search")){
-			Popup.create();
+	receive(request){
+		if (request.action == "clear") {
+			Popup.clear();
+		}else if (request.action == "alert-not-found"){
+			alert("No se encontraron titulos que cumplan el criterio");
+		}else{
+			if(!document.getElementById("modal-wiki-search")){
+				Popup.create();
+				this.open = true;
+			}
+			Popup.addResult(request.results);
 		}
-		Popup.addResult(request.results);
 	}
 
 	static create(){
@@ -55,5 +62,9 @@ class Popup {
 	  	div.appendChild(textnode);
 	}
 
-
+	static clear(){
+		var resultdiv = document.querySelector('#modal-wiki-search');
+		resultdiv.remove();
+		this.open = false;
+	}
 }
