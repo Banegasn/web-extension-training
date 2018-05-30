@@ -9,11 +9,6 @@ class Plugin {
 		this.wiki = new Wiki();
 	}
 
-	static start(tab){
-		var plugin = new Plugin();
-		plugin.openPage(tab);
-	}
-
 	openPage(tab){
 		
 		if (this.showing_results) {
@@ -44,14 +39,11 @@ class Plugin {
 	}
 
 	showResults(results){
-		var me = this;
-	
 		browser.tabs.sendMessage(
-			me.tab.id, 
+			this.tab.id, 
 			{action:'show', results: results}
 		)
-		me.showing_results = true;
-
+		this.showing_results = true;
 	}
 
 	clearResultsPanel(){
