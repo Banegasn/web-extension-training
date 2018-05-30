@@ -7,7 +7,6 @@ class Plugin {
 		this.tab = [];
 		this.showing_results = false;
 		this.wiki = new Wiki();
-		this.instance = this;
 	}
 
 	static start(tab){
@@ -45,13 +44,13 @@ class Plugin {
 	}
 
 	showResults(results){
-		var plugin = this;
+		var me = this;
 	
 		browser.tabs.sendMessage(
-			plugin.tab.id, 
+			me.tab.id, 
 			{action:'show', results: results}
 		)
-		plugin.showing_results = true;
+		me.showing_results = true;
 
 	}
 
