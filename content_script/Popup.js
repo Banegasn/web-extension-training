@@ -9,19 +9,19 @@ class Popup {
 	
 	receive(request){
 		if (request.action == "clear") {
-			Popup.clear();
+			this.clear();
 		}else if (request.action == "alert-not-found"){
 			alert("No se encontraron titulos que cumplan el criterio");
 		}else{
 			if(!document.getElementById("modal-wiki-search")){
-				Popup.create();
+				this.create();
 				this.open = true;
 			}
-			Popup.addResult(request.results);
+			this.addResult(request.results);
 		}
 	}
 
-	static create(){
+	create() {
 		var newDiv = document.createElement("div"); 
 		newDiv.innerHTML = 
 		`
@@ -42,27 +42,28 @@ class Popup {
 		document.body.appendChild(newDiv); 
 	}
 
-	static addResult(results){
+	addResult(results){
 		var resultdiv = document.querySelector('#modal-wiki-search .results-body');
-		Popup.addItem(resultdiv,results.search,'h4');
+		var me = this;
+		this.addItem(resultdiv,results.search,'h4');
 
 	  	if (results.titles.length == 0) {
-			Popup.addItem(resultdiv,"No hay resultados",'li');
+			this.addItem(resultdiv,"No hay resultados",'li');
 	  	}else{
 	  		results.titles.forEach(function(item) {
-		  		Popup.addItem(resultdiv,item,'li');
+		  		me.addItem(resultdiv,item,'li');
 			});
 	  	}
 		
 	}
 
-	static addItem(div,text,elem){
+	addItem(div,text,elem){
 		var textnode = document.createElement(elem);
 	  	textnode.innerHTML = text;
 	  	div.appendChild(textnode);
 	}
 
-	static clear(){
+	clear(){
 		var resultdiv = document.querySelector('#modal-wiki-search');
 		resultdiv.remove();
 		this.open = false;
