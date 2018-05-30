@@ -28,6 +28,7 @@ class Wiki {
 		xmlHttp.onreadystatechange = function() {
 		    if (this.readyState == 4 && this.status == 200) {
 		        var wrapper = new DocumentWrapper( this.response ); 
+				console.log(wrapper.getSearchTitles());
 		        wiki.addResult(wrapper.getSearchTitles());
 		        plugin.showResults({titles: wrapper.getSearchTitles(), search: text});
 		    }

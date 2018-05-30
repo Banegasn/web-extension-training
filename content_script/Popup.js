@@ -9,35 +9,19 @@ class Popup {
 	
 	receive(request){
 		if (request.action == "clear") {
-			this.close();
+			Popup.clear();
 		}else if (request.action == "alert-not-found"){
 			alert("No se encontraron titulos que cumplan el criterio");
 		}else{
 			if(!document.getElementById("modal-wiki-search")){
-				this.show(request.results);
+				Popup.create();
+				this.open = true;
 			}
+			Popup.addResult(request.results);
 		}
 	}
 
-	show(results) {
-		console.log("show: " + results);
-		if (! this.open ) {
-			console.log("creating div");
-			this.createDiv();
-		}
-		console.log("appending results");
-		console.log(JSON.stringify(results));
-		this.appendResults(results);
-	}
-
-	close(){
-		var resultdiv = document.querySelector('#modal-wiki-search');
-		resultdiv.remove();
-		this.open = false;
-	}
-
-	//Private methods from here down
-	createDiv(){
+	static create(){
 		var newDiv = document.createElement("div"); 
 		newDiv.innerHTML = 
 		`
@@ -56,29 +40,31 @@ class Popup {
 		
 		</div>`;
 		document.body.appendChild(newDiv); 
-		this.open = true;
 	}
 
-	appendResults(results){
-        var me = this;
+	static addResult(results){
 		var resultdiv = document.querySelector('#modal-wiki-search .results-body');
-		this.addItem(results.search,'h4');
+		Popup.addItem(resultdiv,results.search,'h4');
 
 	  	if (results.titles.length == 0) {
-			this.addItem("No hay resultados",'li');
+			Popup.addItem(resultdiv,"No hay resultados",'li');
 	  	}else{
 	  		results.titles.forEach(function(item) {
-		  		me.addItem(item,'li');
+		  		Popup.addItem(resultdiv,item,'li');
 			});
 	  	}
+		
 	}
 
-	addItem(text,tag) {
-		var resultdiv = document.querySelector('#modal-wiki-search .results-body');
-		var textnode = document.createElement(tag);
+	static addItem(div,text,elem){
+		var textnode = document.createElement(elem);
 	  	textnode.innerHTML = text;
-	  	resultdiv.appendChild(textnode);
+	  	div.appendChild(textnode);
 	}
 
-
+	static clear(){
+		var resultdiv = document.querySelector('#modal-wiki-search');
+		resultdiv.remove();
+		this.open = false;
+	}
 }
