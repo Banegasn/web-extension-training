@@ -28,9 +28,9 @@ class Wiki {
 		xmlHttp.onreadystatechange = function() {
 		    if (this.readyState == 4 && this.status == 200) {
 		        var wrapper = new DocumentWrapper( this.response ); 
-		        console.log(Wiki.getSearchTitles(wrapper));
-		        wiki.addResult(Wiki.getSearchTitles(wrapper));
-		        plugin.showResults({titles:Wiki.getSearchTitles(wrapper),search:text});
+				console.log(wrapper.getSearchTitles());
+		        wiki.addResult(wrapper.getSearchTitles());
+		        plugin.showResults({titles: wrapper.getSearchTitles(), search: text});
 		    }
 		};
 
@@ -40,9 +40,4 @@ class Wiki {
 		xmlHttp.open( "GET", this.urlSearch + searchtext, true ); // false for synchronous request
 		xmlHttp.send( null );
 	}
-
-	static getSearchTitles(docWrapper){
-		return docWrapper.getTextContents(".mw-search-results .mw-search-result-heading a");
-	}
-
 }

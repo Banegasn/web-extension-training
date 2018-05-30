@@ -30,4 +30,8 @@ class DocumentWrapper {
 		return result;
 	}
 
+	getSearchTitles(){
+		return this.getTextContents(".mw-search-results .mw-search-result-heading a");
+	}
+
 }
