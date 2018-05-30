@@ -24,7 +24,8 @@
 			"node_modules/webextension-polyfill/dist/browser-polyfill.min.js",
 			"shared/DocumentWrapper.js",
 			"content_script/Popup.js",
-			"content_script/content.js"
+			"content_script/ContentFacade.js",
+			"content_script/content.js"	
 		],
 		"run_at": "document_end"   
 	}],

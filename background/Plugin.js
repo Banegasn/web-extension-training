@@ -21,7 +21,7 @@ class Plugin {
 		
 		browser.tabs.sendMessage(
 			tab.id, 
-			{text: 'report_back'}
+			{ methodName: 'getTitles', arguments: {}}
 		).then(
 	  		response => { 
 	  			if (response.titles.length == 0) {
@@ -41,7 +41,7 @@ class Plugin {
 	showResults(results){
 		browser.tabs.sendMessage(
 			this.tab.id, 
-			{action:'show', results: results}
+			{ methodName: 'showResults', arguments: {results: results}}
 		)
 		this.showing_results = true;
 	}
@@ -51,7 +51,7 @@ class Plugin {
 
 		browser.tabs.sendMessage(
 			this.tab.id, 
-			{action: "clear"}
+			{ methodName: 'closePopup', arguments: {}}
 		)
 
 		plugin.showing_results = false;
@@ -60,7 +60,7 @@ class Plugin {
 	noTitlesFound(){
 		browser.tabs.sendMessage(
 			this.tab.id, 
-			{action: "alert-not-found"}
+			{ methodName: 'alertNoTitlesAvailable', arguments: {}}
 		)
 	}
 
