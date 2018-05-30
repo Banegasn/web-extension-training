@@ -9,19 +9,44 @@ class Popup {
 	
 	receive(request){
 		if (request.action == "clear") {
-			this.clear();
+			this.close();
 		}else if (request.action == "alert-not-found"){
-			alert("No se encontraron titulos que cumplan el criterio");
+			this.alertNoTitlesAvailable();
 		}else{
-			if(!document.getElementById("modal-wiki-search")){
-				this.create();
-				this.open = true;
-			}
-			this.addResult(request.results);
+			this.showResults(request.results);
 		}
 	}
 
-	create() {
+	alertNoTitlesAvailable() {
+		alert("No se encontraron titulos que cumplan el criterio");
+	}
+
+	close(){
+		var resultdiv = document.querySelector('#modal-wiki-search');
+		resultdiv.remove();
+		this.open = false;
+	}
+
+	showResults(results){
+		var me = this;
+		this.createIfNecessary();
+		var resultdiv = document.querySelector('#modal-wiki-search .results-body');
+		this.addItem(resultdiv,results.search,'h4');
+	  	if (results.titles.length == 0) {
+			this.addItem(resultdiv,"No hay resultados",'li');
+	  	}else{
+	  		results.titles.forEach(function(item) {
+		  		me.addItem(resultdiv,item,'li');
+			});
+	  	}		
+	}
+
+	// Private methods down here ...
+
+	createIfNecessary() {
+		if ( document.getElementById("modal-wiki-search") ) {
+			return;
+		}
 		var newDiv = document.createElement("div"); 
 		newDiv.innerHTML = 
 		`
@@ -40,21 +65,7 @@ class Popup {
 		
 		</div>`;
 		document.body.appendChild(newDiv); 
-	}
-
-	addResult(results){
-		var resultdiv = document.querySelector('#modal-wiki-search .results-body');
-		var me = this;
-		this.addItem(resultdiv,results.search,'h4');
-
-	  	if (results.titles.length == 0) {
-			this.addItem(resultdiv,"No hay resultados",'li');
-	  	}else{
-	  		results.titles.forEach(function(item) {
-		  		me.addItem(resultdiv,item,'li');
-			});
-	  	}
-		
+		this.open = true;
 	}
 
 	addItem(div,text,elem){
@@ -63,9 +74,5 @@ class Popup {
 	  	div.appendChild(textnode);
 	}
 
-	clear(){
-		var resultdiv = document.querySelector('#modal-wiki-search');
-		resultdiv.remove();
-		this.open = false;
-	}
+
 }
