@@ -1,9 +1,10 @@
 /**
- * Web Class
- * Has a few functions to handle DOM querys 
+ * DocumentWrapper Class
+ * Wraps a browser Document object to provide additional functionality
  */
-class Web {
+class DocumentWrapper {
 
+    //doc: the browser's Document object 
 	constructor(doc){
 		this.doc = doc;
 	}

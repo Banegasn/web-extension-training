@@ -27,10 +27,10 @@ class Wiki {
 
 		xmlHttp.onreadystatechange = function() {
 		    if (this.readyState == 4 && this.status == 200) {
-		        var wikiWeb = new Web( this.response ); 
-		        console.log(Wiki.getSearchTitles(wikiWeb));
-		        wiki.addResult(Wiki.getSearchTitles(wikiWeb));
-		        plugin.showResults({titles:Wiki.getSearchTitles(wikiWeb),search:text});
+		        var wrapper = new DocumentWrapper( this.response ); 
+		        console.log(Wiki.getSearchTitles(wrapper));
+		        wiki.addResult(Wiki.getSearchTitles(wrapper));
+		        plugin.showResults({titles:Wiki.getSearchTitles(wrapper),search:text});
 		    }
 		};
 
@@ -41,8 +41,8 @@ class Wiki {
 		xmlHttp.send( null );
 	}
 
-	static getSearchTitles(web){
-		return web.getTextContents(".mw-search-results .mw-search-result-heading a");
+	static getSearchTitles(docWrapper){
+		return docWrapper.getTextContents(".mw-search-results .mw-search-result-heading a");
 	}
 
 }

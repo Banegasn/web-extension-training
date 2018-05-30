@@ -7,8 +7,8 @@ browser.runtime.onMessage.addListener(request => {
 		popup.receive(request);
 		return true;
 	}else{
-		currentWeb = new Web(document);
-		return Promise.resolve({titles: currentWeb.getH1TitlesWithMoreThan5Chars() });
+		wrapper = new DocumentWrapper(document);
+		return Promise.resolve({titles: wrapper.getH1TitlesWithMoreThan5Chars() });
 	}
 
 });
