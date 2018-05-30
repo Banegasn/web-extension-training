@@ -17,7 +17,7 @@ class Plugin {
 		}
 
 		this.tab = tab;
-		var plugin = this;
+		var me = this;
 		
 		browser.tabs.sendMessage(
 			tab.id, 
@@ -25,10 +25,10 @@ class Plugin {
 		).then(
 	  		response => { 
 	  			if (response.titles.length == 0) {
-	  				plugin.noTitlesFound();
+	  				me.noTitlesFound();
 	  			}
 	  			response.titles.forEach(function(title) {
-					plugin.search(title);
+					me.search(title);
 				});
 	  		}
 	  	);
