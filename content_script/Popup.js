@@ -9,19 +9,35 @@ class Popup {
 	
 	receive(request){
 		if (request.action == "clear") {
-			Popup.clear();
+			this.close();
 		}else if (request.action == "alert-not-found"){
 			alert("No se encontraron titulos que cumplan el criterio");
 		}else{
 			if(!document.getElementById("modal-wiki-search")){
-				Popup.create();
-				this.open = true;
+				this.show(request.results);
 			}
-			Popup.addResult(request.results);
 		}
 	}
 
-	static create(){
+	show(results) {
+		console.log("show: " + results);
+		if (! this.open ) {
+			console.log("creating div");
+			this.createDiv();
+		}
+		console.log("appending results");
+		console.log(JSON.stringify(results));
+		this.appendResults(results);
+	}
+
+	close(){
+		var resultdiv = document.querySelector('#modal-wiki-search');
+		resultdiv.remove();
+		this.open = false;
+	}
+
+	//Private methods from here down
+	createDiv(){
 		var newDiv = document.createElement("div"); 
 		newDiv.innerHTML = 
 		`
@@ -40,31 +56,29 @@ class Popup {
 		
 		</div>`;
 		document.body.appendChild(newDiv); 
+		this.open = true;
 	}
 
-	static addResult(results){
+	appendResults(results){
+        var me = this;
 		var resultdiv = document.querySelector('#modal-wiki-search .results-body');
-		Popup.addItem(resultdiv,results.search,'h4');
+		this.addItem(results.search,'h4');
 
 	  	if (results.titles.length == 0) {
-			Popup.addItem(resultdiv,"No hay resultados",'li');
+			this.addItem("No hay resultados",'li');
 	  	}else{
 	  		results.titles.forEach(function(item) {
-		  		Popup.addItem(resultdiv,item,'li');
+		  		me.addItem(item,'li');
 			});
 	  	}
-		
 	}
 
-	static addItem(div,text,elem){
-		var textnode = document.createElement(elem);
+	addItem(text,tag) {
+		var resultdiv = document.querySelector('#modal-wiki-search .results-body');
+		var textnode = document.createElement(tag);
 	  	textnode.innerHTML = text;
-	  	div.appendChild(textnode);
+	  	resultdiv.appendChild(textnode);
 	}
 
-	static clear(){
-		var resultdiv = document.querySelector('#modal-wiki-search');
-		resultdiv.remove();
-		this.open = false;
-	}
+
 }
