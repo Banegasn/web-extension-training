@@ -12,11 +12,7 @@ class DocumentWrapper {
 	getTextContents(query){
 		var array = [];
 		var items = this.doc.querySelectorAll(query);
-
-		items.forEach(function(item) {
-		  array.push(item.textContent);
-		});
-
+		items.forEach(item => {array.push(item.textContent)});
 		return array;
 	}
 

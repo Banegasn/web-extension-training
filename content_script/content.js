@@ -11,12 +11,12 @@ var facade = new ContentFacade();
 var handleRmcRequest = function (rmcRequest) {
 	{
 		let prom = new Promise((resolve, reject) => {
-			// Reject is any of the to elements of the RMC is missing
-			if ((! rmcRequest.methodName) | (! rmcRequest.arguments)) {
+			//Reject if the rmcRequest is not well formed
+			if ((! rmcRequest.hasOwnProperty('methodName')) || (! rmcRequest.hasOwnProperty('arguments'))) {
 				reject("Invalid remote method call");
 				return;
 			}
-			//Reject if the Façade does not will nor understand the message
+			//Reject if the Façade does not not understand the message
 			if (! facade[rmcRequest.methodName]) {
 				reject("Message not understood");
 				return;

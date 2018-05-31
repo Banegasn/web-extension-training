@@ -1,2 +1,2 @@
 plugin = new Plugin();
-browser.browserAction.onClicked.addListener(function(tab) { plugin.openPage(tab); });
+browser.browserAction.onClicked.addListener(tab => { plugin.openPage(tab); });

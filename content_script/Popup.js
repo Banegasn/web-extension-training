@@ -18,14 +18,14 @@ class Popup {
 	}
 
 	showResults(results){
-		var me = this;
+		const me = this;
 		this.createIfNecessary();
 		var resultdiv = document.querySelector('#modal-wiki-search .results-body');
 		this.addItem(resultdiv,results.search,'h4');
 	  	if (results.titles.length == 0) {
 			this.addItem(resultdiv,"No hay resultados",'li');
 	  	}else{
-	  		results.titles.forEach(function(item) {
+	  		results.titles.forEach(item => {
 		  		me.addItem(resultdiv,item,'li');
 			});
 	  	}		
