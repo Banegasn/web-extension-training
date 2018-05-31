@@ -6,16 +6,6 @@ class Popup {
 	constructor(){
 		this.open = false;
 	}
-	
-	receive(request){
-		if (request.action == "clear") {
-			this.close();
-		}else if (request.action == "alert-not-found"){
-			this.alertNoTitlesAvailable();
-		}else{
-			this.showResults(request.results);
-		}
-	}
 
 	alertNoTitlesAvailable() {
 		alert("No se encontraron titulos que cumplan el criterio");
