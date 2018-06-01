@@ -33,7 +33,10 @@ class Plugin {
 	}
 
 	search(title){
-		this.wiki.search(title, this);
+		const me = this;
+		this.wiki.search(title).then(docWrapper => {
+			me.showResults({titles: docWrapper.getSearchTitles(), search: title});
+		});
 	}
 
 	showResults(results){

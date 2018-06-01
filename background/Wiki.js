@@ -5,24 +5,31 @@
 class Wiki {
 
 	constructor(){
-		this.urlSearch = "https://es.wikipedia.org/w/index.php?fulltext=1&search=";
+		this.baseSearchUrl = "https://es.wikipedia.org/w/index.php?fulltext=1&search=";
     }
-
-	search(text,plugin) { 
-		var xmlHttp = new XMLHttpRequest();
-		var wiki = this;
-
-		xmlHttp.onreadystatechange = function() {
-		    if (this.readyState == 4 && this.status == 200) {
-		        var wrapper = new DocumentWrapper( this.response ); 
-		        plugin.showResults({titles: wrapper.getSearchTitles(), search: text});
-		    }
-		};
-
-		text = text.trim();
-		var searchtext = text.split(' ').join('+');
-		xmlHttp.responseType = "document";
-		xmlHttp.open( "GET", this.urlSearch + searchtext, true ); // false for synchronous request
-		xmlHttp.send( null );
+	
+	/**
+	 * Searches in wikipedia for any of the words in the searchText sentence
+	 * 
+	 * @returns a Promise that resolves to a DocumentWrapper on the results page
+	 * @param {a sentense} searchText 
+	 */
+	search(searchText) { 
+		const me = this;
+		return new Promise((resolve, reject) => {
+			var result = '';
+			var xmlHttp = new XMLHttpRequest();
+			xmlHttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					result = this.response ; 
+					resolve(new DocumentWrapper( this.response ));
+				} 
+			};
+			var searchQuery = searchText.trim().split(' ').join('+');
+			xmlHttp.responseType = "document";
+			xmlHttp.open( "GET", this.baseSearchUrl + searchQuery, true ); // false for synchronous request
+			xmlHttp.send( null );
+		})
 	}
 }
+
