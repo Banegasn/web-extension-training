@@ -6,20 +6,7 @@ class Wiki {
 
 	constructor(){
 		this.urlSearch = "https://es.wikipedia.org/w/index.php?fulltext=1&search=";
-		this.results = [];
     }
-
-	addResult(result){
-		this.results.push(result);
-	}
-
-	getResults(){
-		return this.results
-	}
-
-	clearResults(){
-		this.results = [];
-	}
 
 	search(text,plugin) { 
 		var xmlHttp = new XMLHttpRequest();
@@ -28,7 +15,6 @@ class Wiki {
 		xmlHttp.onreadystatechange = function() {
 		    if (this.readyState == 4 && this.status == 200) {
 		        var wrapper = new DocumentWrapper( this.response ); 
-		        wiki.addResult(wrapper.getSearchTitles());
 		        plugin.showResults({titles: wrapper.getSearchTitles(), search: text});
 		    }
 		};

@@ -45,13 +45,10 @@ class Plugin {
 	}
 
 	clearResultsPanel(){
-		this.wiki.clearResults();
-
 		browser.tabs.sendMessage(
 			this.tab.id, 
 			{ methodName: 'closePopup', arguments: {}}
 		)
-
 		plugin.showing_results = false;
 	}
 
